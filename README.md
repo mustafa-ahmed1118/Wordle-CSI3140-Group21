@@ -3,7 +3,7 @@
 June 9, 2024\
 Group 21
 
-Mustafa Ahmed - 300242013\
-Justin Wang -
+Mustafa Ahmed - 300242013
+Justin Wang - 300234186
 
 This is a wordle game in progress. It will be made with HTML/CSS and JavaScript.
