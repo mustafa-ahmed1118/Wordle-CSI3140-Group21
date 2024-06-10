@@ -27,3 +27,15 @@ body { /* whole screen */
     margin: 5%;
     place-items: center;
 }
+
+.box.empty {
+    background-color: black;
+}
+
+.box.right {
+    background-color: green;
+}
+
+.box.wrong {
+    background-color: yellow;
+}
