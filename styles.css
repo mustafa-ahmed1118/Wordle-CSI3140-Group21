@@ -28,14 +28,14 @@ body { /* whole screen */
     place-items: center;
 }
 
-.box.empty {
+.grid-item.empty {
     background-color: black;
 }
 
-.box.right {
+.grid-item.right {
     background-color: green;
 }
 
-.box.wrong {
+.grid-item.wrong {
     background-color: yellow;
 }
