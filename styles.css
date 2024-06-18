@@ -1,8 +1,16 @@
-body { /* whole screen */
+body {
     background-color: black;
-}
-#title-name{
-    color: aliceblue;
+  }
+  
+  #title-container {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  #title{
+    vertical-align: middle;
+    max-width: 100%; /* Ensure image doesn't exceed its container */
+    height: auto; /* Maintain aspect ratio */
 }
 #wordle { /* Area around the game board */
     display: grid;
@@ -10,6 +18,7 @@ body { /* whole screen */
     column-gap: 50px;
     width: 100%;
     height: 600px;
+    margin-top: 0px;
 }
 
 #gameBoard { /* Actual game board */
