@@ -8,4 +8,4 @@ Justin Wang - 300234186
 
 This is a wordle game in progress. It will be made with HTML/CSS and JavaScript.
 
-[Design Document](../docs/design_system.md)
+[Design Document](/docs/design_system.md)
