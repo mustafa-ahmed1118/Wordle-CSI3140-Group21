@@ -108,7 +108,7 @@ function checkWord(guess) {
     }
   }
 
-  document.addEventListener('keydown', function(event) {
+document.addEventListener('keydown', function(event) {
     let input = event.key;
 
     // If no row is active, initialize the first row with an underscore

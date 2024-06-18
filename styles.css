@@ -50,9 +50,9 @@ body {
 }
 
 .grid-item.right {
-    background-color: green;
+    background-color: rgb(97,140,85);
 }
 
 .grid-item.wrong {
-    background-color: rgba(180,159,59,255);
+    background-color: rgb(180,159,59);
 }
