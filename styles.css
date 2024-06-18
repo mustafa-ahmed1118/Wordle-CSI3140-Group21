@@ -37,6 +37,9 @@ body {
     border: 2px solid white;
     margin: 5%;
     place-items: center;
+    font-family: sans-serif;
+    font-weight: bold;
+    text-transform: capitalize;
 }
 
 .grid-item.empty {
@@ -48,5 +51,5 @@ body {
 }
 
 .grid-item.wrong {
-    background-color: yellow;
+    background-color: rgba(180,159,59,255);
 }

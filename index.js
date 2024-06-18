@@ -142,6 +142,8 @@ function checkWord(guess) {
         if (wordleState.grid[wordleState.currentRow][wordleState.currentCol] === '_') {
             wordleState.grid[wordleState.currentRow][wordleState.currentCol] = '';
             wordleState.currentCol--;
+        } else {
+            wordleState.currentCol--; // Bug fix so backspace with full letter column would have underscore after one button press
         }
         wordleState.grid[wordleState.currentRow][wordleState.currentCol] = '_';
         updateBoardState();
@@ -153,7 +155,6 @@ function checkWord(guess) {
                 checkWord(getCurrentWord());
             } else {
                 checkWord(getCurrentWord());
-                alert("loser");
             }
             wordleState.currentRow++;
             wordleState.currentCol = 0;
