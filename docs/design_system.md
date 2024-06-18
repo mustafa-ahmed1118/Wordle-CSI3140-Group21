@@ -1,5 +1,5 @@
 # CSI3140 - Wordle Design Document
-This document will detail the design decisions made in creating our Wordle game, which will include structure of code and visual components. \
+This document will detail the design decisions made in creating our Wordle game, which will include structure of code and visual components.
 > Project done by **Mustafa Ahmed** & **Justin Wang**
 
 ## Overview
