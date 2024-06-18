@@ -1,7 +1,9 @@
 body { /* whole screen */
     background-color: black;
 }
-
+#title-name{
+    color: aliceblue;
+}
 #wordle { /* Area around the game board */
     display: grid;
     place-items: center;

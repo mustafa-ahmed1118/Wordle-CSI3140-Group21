@@ -1,4 +1,10 @@
-const wordList = ['creed', 'trial', 'drink', 'booze', 'crime', 'legal']; // Avaliable Word List
+const wordList = [
+    "house", "apple", "bread", "earth", "beach",
+    "radio", "river", "tiger", "green", "clock",
+    "train", "shirt", "storm", "flame", "plane",
+    "money", "dance", "music", "photo", "phone",
+    "creed", "trial", "drink", "booze", "crime", "legal"
+]; // Avaliable Word List
 
 const wordleState = { // Keeps track of board
     word: wordList[Math.floor(Math.random() * wordList.length)], 
@@ -8,6 +14,10 @@ const wordleState = { // Keeps track of board
     currentRow: 0,
     currentCol: 0,
 };
+
+//initialize game board
+wordleState.grid[0][0] = "_";
+updateBoardState();
 
 function resetGame(state, wordList) {
     state.word = wordList[Math.floor(Math.random() * wordList.length)];//new word
@@ -24,8 +34,6 @@ function resetGame(state, wordList) {
     }
     wordleState.grid[0][0] = '_';
 }
-
-    
 
 function updateBoardState() { // Function displays changes to the board
     for (let x = 0; x < wordleState.grid.length; x ++) {
@@ -117,7 +125,7 @@ function checkWord(guess) {
         if (wordleState.currentCol === 5) return; // If we are at the end of the row, do nothing
 
         // Place the letter and move the underscore
-        wordleState.grid[wordleState.currentRow][wordleState.currentCol] = input;
+        wordleState.grid[wordleState.currentRow][wordleState.currentCol] = input.toLowerCase();
         if (wordleState.currentCol < 4) {
             wordleState.currentCol++;
             wordleState.grid[wordleState.currentRow][wordleState.currentCol] = '_';
