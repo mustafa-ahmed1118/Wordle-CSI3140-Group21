@@ -1,13 +1,31 @@
 const wordList = ['creed', 'trial', 'drink', 'booze', 'crime', 'legal']; // Avaliable Word List
 
 const wordleState = { // Keeps track of board
-    word: wordList[Math.floor(Math.random() * wordList.length)],
+    word: wordList[Math.floor(Math.random() * wordList.length)], 
     grid: Array(6)
         .fill()
         .map(() => Array(5).fill('')), // Creates a 6x5 grid that can be typed in
     currentRow: 0,
     currentCol: 0,
 };
+
+function resetGame(state, wordList) {
+    state.word = wordList[Math.floor(Math.random() * wordList.length)];//new word
+    state.grid = Array(6).fill().map(() => Array(5).fill('')); //new empty game board
+    state.currentRow = -1;
+    state.currentCol = 0;
+
+    //reset the boxes to empty
+    for (let x = 0; x < wordleState.grid.length; x ++) {
+        for (let y = 0; y < wordleState.grid[x].length; y++) {
+            const box = document.getElementById(`box${x}${y}`);
+            box.className = "grid-item"
+        }
+    }
+    wordleState.grid[0][0] = '_';
+}
+
+    
 
 function updateBoardState() { // Function displays changes to the board
     for (let x = 0; x < wordleState.grid.length; x ++) {
@@ -72,27 +90,55 @@ function checkWord(guess) {
   
     if (winner) {
         alert('Congratulations!');
+        resetGame(wordleState, wordList);
+        updateBoardState();
+
     } else if (gameOver) {
         alert(`The word was ${wordleState.word}.`);
+        resetGame(wordleState, wordList);
+        updateBoardState();
     }
   }
 
-document.addEventListener('keydown', function(event) { // Event handler for keyboard
+  document.addEventListener('keydown', function(event) {
     let input = event.key;
-    if (input.length === 1 && input.match(/[a-z]/i)) { // If the keyboard input is a letter, display it
-        if (wordleState.currentCol === 5) return;
+
+    // If no row is active, initialize the first row with an underscore
+    if (wordleState.currentRow === -1) {
+        wordleState.currentRow = 0;
+        wordleState.grid[wordleState.currentRow][0] = '_';
+        wordleState.currentCol = 0;
+        updateBoardState();
+        return;
+    }
+
+    // Handle letter input
+    if (input.length === 1 && input.match(/[a-z]/i)) {
+        if (wordleState.currentCol === 5) return; // If we are at the end of the row, do nothing
+
+        // Place the letter and move the underscore
         wordleState.grid[wordleState.currentRow][wordleState.currentCol] = input;
-        wordleState.currentCol++;
-
+        if (wordleState.currentCol < 4) {
+            wordleState.currentCol++;
+            wordleState.grid[wordleState.currentRow][wordleState.currentCol] = '_';
+        } else {
+            wordleState.currentCol++;
+        }
         updateBoardState();
 
-    } else if (input == 'Backspace') { // If the keyboard input is a backspace, remove letter
-        if (wordleState.currentCol === 0) return;
-        wordleState.grid[wordleState.currentRow][wordleState.currentCol - 1] = '';
-        wordleState.currentCol--;
+    // Handle Backspace input
+    } else if (input == 'Backspace') {
+        if (wordleState.currentCol === 0) return; // If we are at the start of the row, do nothing
 
+        // Remove the letter and move the underscore back
+        if (wordleState.grid[wordleState.currentRow][wordleState.currentCol] === '_') {
+            wordleState.grid[wordleState.currentRow][wordleState.currentCol] = '';
+            wordleState.currentCol--;
+        }
+        wordleState.grid[wordleState.currentRow][wordleState.currentCol] = '_';
         updateBoardState();
 
+    // Handle Enter input
     } else if (input == 'Enter') {
         if (wordleState.currentCol === 5) {
             if (getCurrentWord() === wordleState.word) {
@@ -101,8 +147,14 @@ document.addEventListener('keydown', function(event) { // Event handler for keyb
                 checkWord(getCurrentWord());
                 alert("loser");
             }
+            wordleState.currentRow++;
+            wordleState.currentCol = 0;
+            if (wordleState.currentRow < 6) {
+                wordleState.grid[wordleState.currentRow][0] = '_'; // Initialize the new row with an underscore
+            }
+            updateBoardState();
+        } else if (wordleState.currentCol < 5) {
+            alert("Guess 5 letters before entering!");
         }
-        wordleState.currentRow++;
-        wordleState.currentCol = 0;
     }
 });
