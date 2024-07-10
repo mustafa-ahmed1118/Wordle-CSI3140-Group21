@@ -1,16 +1,22 @@
 //Game Functions
-function startGame() {
-    fetch('http://localhost:3000/versions/v02/server.php', {
+function startGame(result) {
+    console.log("test: " + result);
+    fetch('http://localhost:3000/server.php', {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: 'action=start_game'
+        body:  `action=start_game&result=${result}`
     })
     .then(response => response.json())
     .then(data => {
         updateBoard(data.grid);
+        console.log(data.word);
+        console.log(data.streak);
+        const streakCounter = document.getElementById(`streak-counter`);
+        streakCounter.textContent = "Streaks: " + data.streak;
     })
     .catch(error => console.error('Error starting game:', error));
 }
+
 function getCurrentWord() {
     const currentRow = document.querySelector('.grid-item:not(.right):not(.wrong):not(.empty)').id.charAt(3);
     let currentWord = '';
@@ -20,8 +26,9 @@ function getCurrentWord() {
     }
     return currentWord;
 }
+
 function typeLetter(letter) {
-    fetch('http://localhost:3000/versions/v02/server.php', {
+    fetch('http://localhost:3000/server.php', {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         body: `action=type_letter&letter=${letter}`
@@ -34,7 +41,7 @@ function typeLetter(letter) {
 }
 
 function handleBackspace() {
-    fetch('http://localhost:3000/versions/v02/server.php', {
+    fetch('http://localhost:3000/server.php', {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         body: 'action=backspace'
@@ -47,7 +54,7 @@ function handleBackspace() {
 }
 
 function submitGuess(guess) {
-    fetch('http://localhost:3000/versions/v02/server.php', {
+    fetch('http://localhost:3000/server.php', {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         body: `action=submit_guess&guess=${guess}`
@@ -57,21 +64,21 @@ function submitGuess(guess) {
         if (data.error) {
             console.error(data.error);
         } else {
-            updateBoard(data.grid);
             if (data.result === 'win') {
                 alert('Congratulations! You guessed the word!');
-                startGame();
+                startGame(true);
             } else if (data.result === 'lose') {
                 alert(`Game over! The word was ${data.word}`);
-                startGame();
+                startGame(false);
             }
+            updateBoard(data.grid);
         }
     })
     .catch(error => console.error('Error submitting guess:', error));
 }
 
 function updateBoard(grid) {
-    fetch('http://localhost:3000/versions/v02/server.php', {
+    fetch('http://localhost:3000/server.php', {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         body: 'action=get_game_state'
@@ -100,7 +107,7 @@ function updateBoard(grid) {
 
 //EVENT LISTENSERS
 document.addEventListener('DOMContentLoaded', () => {
-    startGame();
+    startGame(false);
 });
 
 document.addEventListener('keydown', function(event) {

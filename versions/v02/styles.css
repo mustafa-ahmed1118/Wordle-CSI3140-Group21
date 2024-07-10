@@ -15,6 +15,11 @@ body {
     margin-bottom: -250px;
 }
 
+#streak-counter {
+    color: white;
+    text-align: center;
+}
+
 #wordle { /* Area around the game board */
     display: grid;
     place-items: center;

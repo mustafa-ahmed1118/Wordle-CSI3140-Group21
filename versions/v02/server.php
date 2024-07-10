@@ -1,49 +1,62 @@
 <?php
 session_start();
 
-function startGame()
-{
-    $wordList = [
-        "house",
-        "apple",
-        "bread",
-        "earth",
-        "beach",
-        "radio",
-        "river",
-        "tiger",
-        "green",
-        "clock",
-        "train",
-        "shirt",
-        "storm",
-        "flame",
-        "plane",
-        "money",
-        "dance",
-        "music",
-        "photo",
-        "phone",
-        "creed",
-        "trial",
-        "drink",
-        "booze",
-        "crime",
-        "legal"
-    ];
-    $_SESSION['word'] = $wordList[array_rand($wordList)];
+$wordList = [
+    "house",
+    "apple",
+    "bread",
+    "earth",
+    "beach",
+    "radio",
+    "river",
+    "tiger",
+    "green",
+    "clock",
+    "train",
+    "shirt",
+    "storm",
+    "flame",
+    "plane",
+    "money",
+    "dance",
+    "music",
+    "photo",
+    "phone",
+    "creed",
+    "trial",
+    "drink",
+    "booze",
+    "crime",
+    "legal"
+];
+
+
+function startGame() {
+    $word = $GLOBALS['wordList'];
+    $_SESSION['word'] = $word[array_rand($word)];
     $_SESSION['grid'] = array_fill(0, 6, array_fill(0, 5, ['letter' => '', 'state' => '']));
     $_SESSION['currentRow'] = 0;
     $_SESSION['currentCol'] = 0;
 
+    if (!isset($_SESSION['streak'])) {
+        $_SESSION['streak'] = 0;
+    }
+
+    $result = $_POST['result'];
+    if ($result == 'true') {
+        $_SESSION['streak']++;
+    } else {
+        $_SESSION['streak'] = 0;
+    }
+
     echo json_encode([
         'word' => $_SESSION['word'],
         'grid' => $_SESSION['grid'],
+        'streak' => $_SESSION['streak'],
     ]);
 }
 
-function submitGuess()
-{
+function submitGuess() {
     $guess = $_POST['guess'];
     $currentRow = $_SESSION['currentRow'];
 
@@ -84,8 +97,7 @@ function submitGuess()
     echo json_encode(['result' => 'next', 'grid' => $_SESSION['grid']]);
 }
 
-function typeLetter($letter)
-{
+function typeLetter($letter) {
     $currentRow = $_SESSION['currentRow'];
     $currentCol = $_SESSION['currentCol'];
 
@@ -99,8 +111,7 @@ function typeLetter($letter)
     ]);
 }
 
-function handleBackspace()
-{
+function handleBackspace() {
     $currentRow = $_SESSION['currentRow'];
     $currentCol = $_SESSION['currentCol'];
 
@@ -114,17 +125,18 @@ function handleBackspace()
     ]);
 }
 
-function getGameState()
-{
+function getGameState() {
     echo json_encode([
         'word' => $_SESSION['word'],
-        'grid' => $_SESSION['grid']
+        'grid' => $_SESSION['grid'],
+        'streak' => $_SESSION['streak']
     ]);
 }
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $action = $_POST['action'];
     if ($action == 'start_game') {
+        $result = $_POST['result'];
         startGame();
     } elseif ($action == 'submit_guess') {
         submitGuess();
