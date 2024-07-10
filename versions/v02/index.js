@@ -9,8 +9,21 @@ function startGame(result) {
     .then(response => response.json())
     .then(data => {
         updateBoard(data.grid);
+
+        //Used for tracking data in console
         console.log(data.word);
         console.log(data.streak);
+
+        // Add items to list
+        const trackerList = document.getElementById('tracker-list');
+        trackerList.innerHTML = ''
+        data.streakValues.forEach(value => {
+            const listItem = document.createElement('li');
+            listItem.textContent = value;
+            trackerList.appendChild(listItem);
+        });
+
+        // Used to update streak counter
         const streakCounter = document.getElementById(`streak-counter`);
         streakCounter.textContent = "Streaks: " + data.streak;
     })

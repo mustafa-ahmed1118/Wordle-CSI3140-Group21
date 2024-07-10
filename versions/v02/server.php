@@ -37,15 +37,24 @@ function startGame() {
     $_SESSION['grid'] = array_fill(0, 6, array_fill(0, 5, ['letter' => '', 'state' => '']));
     $_SESSION['currentRow'] = 0;
     $_SESSION['currentCol'] = 0;
+    // $_SESSION['reloaded'] = 'false';
 
     if (!isset($_SESSION['streak'])) {
         $_SESSION['streak'] = 0;
+    }
+
+    if (!isset($_SESSION['streakValues'])) { // Doesn't reset variable when you reload the page
+        $_SESSION['streakValues'] = [];
     }
 
     $result = $_POST['result'];
     if ($result == 'true') {
         $_SESSION['streak']++;
     } else {
+        if ($_SESSION['streak'] > 0 ) { // if you reload the page, and streak = 0, it wont add to the list
+            // PROBLEM: When you reload the list, and streak > 0, it will add to list so please fix
+            $_SESSION['streakValues'][] = $_SESSION['streak'];
+        }
         $_SESSION['streak'] = 0;
     }
 
@@ -53,6 +62,7 @@ function startGame() {
         'word' => $_SESSION['word'],
         'grid' => $_SESSION['grid'],
         'streak' => $_SESSION['streak'],
+        'streakValues'=> $_SESSION['streakValues'],
     ]);
 }
 

@@ -17,6 +17,7 @@ body {
 
 #streak-counter {
     color: white;
+    margin-top: 100px;
     text-align: center;
 }
 
@@ -26,7 +27,7 @@ body {
     column-gap: 50px;
     width: 100%;
     height: 600px;
-    margin-top: 0px;
+    margin-top: -50px;
 }
 
 #gameBoard { /* Actual game board */
@@ -60,4 +61,16 @@ body {
 
 .grid-item.wrong {
     background-color: rgb(180,159,59);
+}
+
+#sidebar {
+    width: 200px;
+    border: 1px solid #ccc;
+    padding: 10px;
+    background-color: #f9f9f9;
+}
+
+#tracker-list {
+    list-style-type: none;
+    padding: 0;
 }
