@@ -1,4 +1,4 @@
-# CSI3140 Assignment 2 Wordle
+# CSI3140 Assignment 3 Wordle With PHP
 
 June 19, 2024\
 Group 21
@@ -9,7 +9,12 @@ Justin Wang - 300234186
 This is our implementation of Wordle. It was made with HTML/CSS and JavaScript. For more details about the design, click the link : [Design Document](/docs/design_system.md)
 
 ## How to Play
-Simply open our `index.html` file and start typing! Only letters will be accepted as inputs, press Enter to submit your guess and Backspace to remove a letter
-<p align="center">
-  <img src="docs/our_wordle.png" alt="our wordle"/>
-</p>
+
+1. Deploy the server called `server.php` in a local host server (ie `http://localhost:3000/versions/v02/server.php`).
+
+2. Navigate in the browser to the `index.html` file in your local host server (ie `http://localhost:3000/versions/v02/index.html`).
+
+3. Begin guessing words using your keyboard!
+   <p align="center">
+     <img src="docs/our_wordle.png" alt="our wordle"/>
+   </p>
