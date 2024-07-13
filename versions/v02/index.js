@@ -1,4 +1,4 @@
-let serverName = 'http://localhost:3000/versions/v02/server.php'
+let serverName = 'http://localhost:3000/server.php'
 //Game Functions
 function startGame(result) {
     console.log("test: " + result);
@@ -27,7 +27,7 @@ function startGame(result) {
 
         // Used to update streak counter
         const streakCounter = document.getElementById(`streak-counter`);
-        streakCounter.textContent = "Streaks: " + data.streak;
+        streakCounter.textContent = "Streak: " + data.streak;
     })
     .catch(error => console.error('Error starting game:', error));
 }
