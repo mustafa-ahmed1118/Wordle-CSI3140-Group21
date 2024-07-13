@@ -31,7 +31,7 @@ We have added a simple scoring system ourselves:
 
 3. Begin guessing words using your keyboard!
    <p align="center">
-     <img src="./docs/our_wordle.png" alt="our wordle"/>
+     <img src="../docs/our_wordle.png" alt="our wordle"/>
    </p>
 
 ## Structural Component Breakdown
