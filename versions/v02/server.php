@@ -30,43 +30,37 @@ $wordList = [
     "legal"
 ];
 
-
-function startGame() {
+function startGame()
+{
     $word = $GLOBALS['wordList'];
     $_SESSION['word'] = $word[array_rand($word)];
     $_SESSION['grid'] = array_fill(0, 6, array_fill(0, 5, ['letter' => '', 'state' => '']));
     $_SESSION['currentRow'] = 0;
     $_SESSION['currentCol'] = 0;
-    // $_SESSION['reloaded'] = 'false';
 
     if (!isset($_SESSION['streak'])) {
         $_SESSION['streak'] = 0;
     }
 
-    if (!isset($_SESSION['streakValues'])) { // Doesn't reset variable when you reload the page
+    if (!isset($_SESSION['streakValues'])) {
         $_SESSION['streakValues'] = [];
     }
 
-    $result = $_POST['result'];
-    if ($result == 'true') {
-        $_SESSION['streak']++;
-    } else {
-        if ($_SESSION['streak'] > 0 ) { // if you reload the page, and streak = 0, it wont add to the list
-            // PROBLEM: When you reload the list, and streak > 0, it will add to list so please fix
-            $_SESSION['streakValues'][] = $_SESSION['streak'];
-        }
-        $_SESSION['streak'] = 0;
+    //Save killed streak
+    if (isset($_SESSION['resetStreakOnReload']) && $_SESSION['resetStreakOnReload'] === true) {
+        $_SESSION['resetStreakOnReload'] = false;
     }
 
     echo json_encode([
         'word' => $_SESSION['word'],
         'grid' => $_SESSION['grid'],
         'streak' => $_SESSION['streak'],
-        'streakValues'=> $_SESSION['streakValues'],
+        'streakValues' => $_SESSION['streakValues'],
     ]);
 }
 
-function submitGuess() {
+function submitGuess()
+{
     $guess = $_POST['guess'];
     $currentRow = $_SESSION['currentRow'];
 
@@ -95,9 +89,14 @@ function submitGuess() {
     }
 
     if ($guess === $_SESSION['word']) {
+        $_SESSION['streak']++;
         echo json_encode(['result' => 'win', 'grid' => $_SESSION['grid']]);
         return;
     } elseif ($currentRow === 5) {
+        if ($_SESSION['streak'] > 0) {
+            $_SESSION['streakValues'][] = $_SESSION['streak'];
+            $_SESSION['streak'] = 0;
+        }
         echo json_encode(['result' => 'lose', 'word' => $_SESSION['word'], 'grid' => $_SESSION['grid']]);
         return;
     }
@@ -107,7 +106,8 @@ function submitGuess() {
     echo json_encode(['result' => 'next', 'grid' => $_SESSION['grid']]);
 }
 
-function typeLetter($letter) {
+function typeLetter($letter)
+{
     $currentRow = $_SESSION['currentRow'];
     $currentCol = $_SESSION['currentCol'];
 
@@ -121,7 +121,8 @@ function typeLetter($letter) {
     ]);
 }
 
-function handleBackspace() {
+function handleBackspace()
+{
     $currentRow = $_SESSION['currentRow'];
     $currentCol = $_SESSION['currentCol'];
 
@@ -135,7 +136,8 @@ function handleBackspace() {
     ]);
 }
 
-function getGameState() {
+function getGameState()
+{
     echo json_encode([
         'word' => $_SESSION['word'],
         'grid' => $_SESSION['grid'],
@@ -146,7 +148,9 @@ function getGameState() {
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $action = $_POST['action'];
     if ($action == 'start_game') {
-        $result = $_POST['result'];
+        if (isset($_SESSION['streak'])) {
+            $_SESSION['resetStreakOnReload'] = true;
+        }
         startGame();
     } elseif ($action == 'submit_guess') {
         submitGuess();

@@ -1,7 +1,8 @@
+let serverName = 'http://localhost:3000/versions/v02/server.php'
 //Game Functions
 function startGame(result) {
     console.log("test: " + result);
-    fetch('http://localhost:3000/server.php', {
+    fetch(serverName, {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         body:  `action=start_game&result=${result}`
@@ -17,6 +18,7 @@ function startGame(result) {
         // Add items to list
         const trackerList = document.getElementById('tracker-list');
         trackerList.innerHTML = ''
+        data.streakValues.sort((a, b) => b - a); //ensure leader board is tracked from highest to lowest scores
         data.streakValues.forEach(value => {
             const listItem = document.createElement('li');
             listItem.textContent = value;
@@ -41,7 +43,7 @@ function getCurrentWord() {
 }
 
 function typeLetter(letter) {
-    fetch('http://localhost:3000/server.php', {
+    fetch(serverName, {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         body: `action=type_letter&letter=${letter}`
@@ -54,7 +56,7 @@ function typeLetter(letter) {
 }
 
 function handleBackspace() {
-    fetch('http://localhost:3000/server.php', {
+    fetch(serverName, {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         body: 'action=backspace'
@@ -67,7 +69,7 @@ function handleBackspace() {
 }
 
 function submitGuess(guess) {
-    fetch('http://localhost:3000/server.php', {
+    fetch(serverName, {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         body: `action=submit_guess&guess=${guess}`
@@ -91,7 +93,7 @@ function submitGuess(guess) {
 }
 
 function updateBoard(grid) {
-    fetch('http://localhost:3000/server.php', {
+    fetch(serverName, {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         body: 'action=get_game_state'

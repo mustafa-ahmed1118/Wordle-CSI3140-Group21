@@ -70,7 +70,18 @@ body {
     background-color: #f9f9f9;
 }
 
+/* Sidebar container */
+#sidebar {
+    background-color: #f0f0f0; /* Light gray background */
+    padding: 15px; /* Padding inside the sidebar */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Soft shadow */
+}
+
+
+
+/* Tracker list */
 #tracker-list {
-    list-style-type: none;
-    padding: 0;
+    list-style-type: none; 
+    padding: 0; 
 }
