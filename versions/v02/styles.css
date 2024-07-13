@@ -83,12 +83,12 @@ body {
     color: #5587b9; 
 }
 
-#tracker-list {
+#leaderboard-list {
     list-style-type: none; 
     padding: 0;
 }
 
-#tracker-list li {
+#leaderboard-list li {
     font-family: 'Arial', sans-serif; 
     font-size: 18px; 
     color: #5587b9; 

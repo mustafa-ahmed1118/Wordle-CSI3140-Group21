@@ -1,12 +1,12 @@
 # CSI3140 Assignment 3 Wordle With PHP
 
-June 19, 2024\
+July 13, 2024\
 Group 21
 
 Mustafa Ahmed - 300242013\
 Justin Wang - 300234186
 
-This is our implementation of Wordle. It was made with HTML/CSS and JavaScript. For more details about the design, click the link : [Design Document](/docs/design_system.md)
+This is our implementation of Wordle. It was made with HTML/CSS JavaScript and PHP. For more details about the design, click the link : [Design Document](/docs/design_system.md)
 
 ## How to Play
 

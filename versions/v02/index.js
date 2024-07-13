@@ -1,4 +1,4 @@
-let serverName = 'http://localhost:3000/server.php'
+let serverName = 'http://localhost:3000/versions/v02/server.php'
 //Game Functions
 function startGame(result) {
     console.log("test: " + result);
@@ -16,7 +16,7 @@ function startGame(result) {
         console.log(data.streak);
 
         // Add items to list
-        const trackerList = document.getElementById('tracker-list');
+        const trackerList = document.getElementById('leaderboard-list');
         trackerList.innerHTML = ''
         data.streakValues.sort((a, b) => b - a); //ensure leader board is tracked from highest to lowest scores
         data.streakValues.forEach(value => {
