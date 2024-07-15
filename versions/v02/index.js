@@ -1,4 +1,4 @@
-let serverName = 'http://localhost:3000/versions/v02/server.php'
+let serverName = 'http://localhost:3000/server.php'
 //Game Functions
 function startGame(result) {
     console.log("test: " + result);
@@ -19,11 +19,11 @@ function startGame(result) {
         const trackerList = document.getElementById('leaderboard-list');
         trackerList.innerHTML = ''
         data.streakValues.sort((a, b) => b - a); //ensure leader board is tracked from highest to lowest scores
-        data.streakValues.forEach(value => {
+        for (let x = 0; x < 10; x++) { // Keep leaderboard to 10 values only
             const listItem = document.createElement('li');
-            listItem.textContent = value;
+            listItem.textContent = data.streakValues[x];
             trackerList.appendChild(listItem);
-        });
+          }
 
         // Used to update streak counter
         const streakCounter = document.getElementById(`streak-counter`);
