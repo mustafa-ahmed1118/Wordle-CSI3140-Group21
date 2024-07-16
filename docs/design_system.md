@@ -2,7 +2,9 @@
 
 This document will detail the design decisions made in creating our Wordle game, which will include structure of code and visual components.
 
-> Project done by **Mustafa Ahmed** & **Justin Wang**
+> Project done by **Mustafa Ahmed** & **Justin Wang** \
+> July 16th, 2024 \
+> A3
 
 ## Overview
 
@@ -25,11 +27,13 @@ We have added a simple scoring system ourselves:
 
 ## How to Play
 
-1. Deploy the server called `server.php` in a local host server (ie `http://localhost:3000/versions/v02/server.php`).
+1. With PHP downloaded on your computer, go to the v02 directory on your terminal.
 
-2. Navigate in the browser to the `index.html` file in your local host server (ie `http://localhost:3000/versions/v02/index.html`).
+2. In the terminal, type the following cmd to deploy a PHP server at localhost 3000: `php -S localhost:3000` (use `killall -9 php` to turn off PHP server).
 
-3. Begin guessing words using your keyboard!
+3. Open the `index.html` file.
+
+4. Begin guessing words using your keyboard!
    <p align="center">
      <img src="../docs/our_wordle.png" alt="our wordle"/>
    </p>
