@@ -10,11 +10,13 @@ This is our implementation of Wordle. It was made with HTML/CSS JavaScript and P
 
 ## How to Play
 
-1. Deploy the server called `server.php` in a local host server (ie `http://localhost:3000/versions/v02/server.php`).
+1. With PHP downloaded on your computer, navigate to the v02 directory on your terminal.
 
-2. Navigate in the browser to the `index.html` file in your local host server (ie `http://localhost:3000/versions/v02/index.html`).
+2. In the terminal, type the following cmd to deploy a PHP server at localhost 3000: `php -S localhost:3000` (use `killall -9 php` to turn off PHP server).
 
-3. Begin guessing words using your keyboard!
+3. With the server now running, navigate to `http://localhost:3000/index.html` in you chosen web browser.
+
+4. Begin guessing words using your keyboard!
    <p align="center">
-     <img src="docs/our_wordle.png" alt="our wordle"/>
+     <img src="../docs/our_wordle.png" alt="our wordle"/>
    </p>
