@@ -31,7 +31,7 @@ We have added a simple scoring system ourselves:
 
 2. In the terminal, type the following cmd to deploy a PHP server at localhost 3000: `php -S localhost:3000` (use `killall -9 php` to turn off PHP server).
 
-3. With the server now running, navigate to `http://localhost:3000/index.html` in you chosen web browser.
+3. With the server now running, navigate to `http://localhost:3000/index.html` in your chosen web browser.
 
 4. Begin guessing words using your keyboard!
    <p align="center">
