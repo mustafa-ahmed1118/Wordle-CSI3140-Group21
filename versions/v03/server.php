@@ -1,39 +1,26 @@
 <?php
 session_start();
 
-$wordList = [
-    "house",
-    "apple",
-    "bread",
-    "earth",
-    "beach",
-    "radio",
-    "river",
-    "tiger",
-    "green",
-    "clock",
-    "train",
-    "shirt",
-    "storm",
-    "flame",
-    "plane",
-    "money",
-    "dance",
-    "music",
-    "photo",
-    "phone",
-    "creed",
-    "trial",
-    "drink",
-    "booze",
-    "crime",
-    "legal"
-];
-
 function startGame()
 {
-    $word = $GLOBALS['wordList'];
-    $_SESSION['word'] = $word[array_rand($word)];
+    $dbconn = new mysqli("127.0.0.1", "root", "juswan07?", "wordle_game", 3306);
+    if ($dbconn->connect_error) {
+        echo json_encode(["error" => "Connection failed: " . $dbconn->connect_error]);
+        exit;
+    }
+    $result = $dbconn->query("SELECT word FROM wordlist ORDER BY RAND() LIMIT 1");
+    if (!$result) {
+        echo json_encode(["error" => "Query failed: " . $dbconn->error]);
+        exit;
+    }
+    $row = $result->fetch_assoc();
+    $word = $row['word'] ?? null;
+    if (!$word) {
+        echo json_encode(["error" => "No word found"]);
+        exit;
+    }
+
+    $_SESSION['word'] = $word;
     $_SESSION['grid'] = array_fill(0, 6, array_fill(0, 5, ['letter' => '', 'state' => '']));
     $_SESSION['currentRow'] = 0;
     $_SESSION['currentCol'] = 0;
@@ -41,12 +28,10 @@ function startGame()
     if (!isset($_SESSION['streak'])) {
         $_SESSION['streak'] = 0;
     }
-
     if (!isset($_SESSION['streakValues'])) {
         $_SESSION['streakValues'] = [];
     }
 
-    //Save killed streak
     if (isset($_SESSION['resetStreakOnReload']) && $_SESSION['resetStreakOnReload'] === true) {
         $_SESSION['resetStreakOnReload'] = false;
     }
@@ -61,8 +46,8 @@ function startGame()
 
 function submitGuess()
 {
-    $guess = $_POST['guess'];
-    $currentRow = $_SESSION['currentRow'];
+    $guess = $_POST['guess'] ?? '';
+    $currentRow = $_SESSION['currentRow'] ?? 0;
 
     if (strlen($guess) != 5) {
         echo json_encode(['error' => 'Guess must be 5 letters']);
@@ -116,9 +101,7 @@ function typeLetter($letter)
         $_SESSION['currentCol']++;
     }
 
-    echo json_encode([
-        'grid' => $_SESSION['grid']
-    ]);
+    echo json_encode(['grid' => $_SESSION['grid']]);
 }
 
 function handleBackspace()
@@ -131,9 +114,7 @@ function handleBackspace()
         $_SESSION['grid'][$currentRow][$_SESSION['currentCol']] = ['letter' => '', 'state' => ''];
     }
 
-    echo json_encode([
-        'grid' => $_SESSION['grid']
-    ]);
+    echo json_encode(['grid' => $_SESSION['grid']]);
 }
 
 function getGameState()
@@ -146,7 +127,7 @@ function getGameState()
 }
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $action = $_POST['action'];
+    $action = $_POST['action'] ?? '';
     if ($action == 'start_game') {
         if (isset($_SESSION['streak'])) {
             $_SESSION['resetStreakOnReload'] = true;
@@ -155,7 +136,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     } elseif ($action == 'submit_guess') {
         submitGuess();
     } elseif ($action == 'type_letter') {
-        $letter = $_POST['letter'];
+        $letter = $_POST['letter'] ?? '';
         typeLetter($letter);
     } elseif ($action == 'backspace') {
         handleBackspace();
