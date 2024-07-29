@@ -21,3 +21,15 @@ INSERT INTO WordList (WordID, Word) VALUES
 (16, 'money'), (17, 'dance'), (18, 'music'), (19, 'photo'), (20, 'phone'),
 (21, 'creed'), (22, 'trial'), (23, 'drink'), (24, 'booze'), (25, 'crime'),
 (26, 'legal');
+
+INSERT INTO Leaderboard (EntryID, Name, Score) VALUES
+	(1, 'Mustafa', 100),
+	(2, 'Justin', 99),
+    (3, 'Ali', 98),
+    (4, 'Aydin', 97),
+    (5, 'Tolu', 96),
+    (6, 'Tim', 95),
+    (7, 'Meriem', 94),
+    (8, 'Jack', 93),
+    (9, 'Sami', 92),
+    (10, 'Kalala', 91);
