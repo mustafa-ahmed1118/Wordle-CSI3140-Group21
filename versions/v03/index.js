@@ -1,11 +1,10 @@
 let serverName = 'http://localhost:3000/server.php'
 //Game Functions
-function startGame(result) {
-    console.log("test: " + result);
+function startGame() {
     fetch(serverName, {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body:  `action=start_game&result=${result}`
+        body:  `action=start_game&name=${"name"}`
     })
     .then(response => response.json())
     .then(data => {
@@ -14,6 +13,7 @@ function startGame(result) {
         //Used for tracking data in console
         console.log(data.word);
         console.log(data.streak);
+        console.log("Data: " + JSON.stringify(data.scoreboard));
 
         // Add items to list
         const trackerList = document.getElementById('leaderboard-list');
@@ -21,7 +21,7 @@ function startGame(result) {
         data.streakValues.sort((a, b) => b - a); //ensure leader board is tracked from highest to lowest scores
         for (let x = 0; x < 10; x++) { // Keep leaderboard to 10 values only
             const listItem = document.createElement('li');
-            listItem.textContent = data.streakValues[x];
+            listItem.textContent = JSON.stringify(data.scoreboard[0][x][0]) + ": " + JSON.stringify(data.scoreboard[0][x][1]) // data.streakValues[x];
             trackerList.appendChild(listItem);
           }
 
@@ -81,10 +81,10 @@ function submitGuess(guess) {
         } else {
             if (data.result === 'win') {
                 alert('Congratulations! You guessed the word!');
-                startGame(true);
+                startGame();
             } else if (data.result === 'lose') {
                 alert(`Game over! The word was ${data.word}`);
-                startGame(false);
+                startGame();
             }
             updateBoard(data.grid);
         }
@@ -122,7 +122,7 @@ function updateBoard(grid) {
 
 //EVENT LISTENSERS
 document.addEventListener('DOMContentLoaded', () => {
-    startGame(false);
+    startGame();
 });
 
 document.addEventListener('keydown', function(event) {

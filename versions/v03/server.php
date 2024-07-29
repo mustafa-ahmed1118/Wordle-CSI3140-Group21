@@ -25,6 +25,15 @@ function startGame()
     $_SESSION['currentRow'] = 0;
     $_SESSION['currentCol'] = 0;
 
+    $sql2 = "SELECT Name, Score FROM Leaderboard";
+    $result2 = $dbconn->query($sql2);
+    unset($_SESSION["scoreboard"]);
+    $_SESSION["scoreboard"][] = $result2->fetch_all();
+
+    if (!isset($_SESSION['name'])) {
+        $_SESSION['name'] = strval($_POST['name']);
+    }
+
     if (!isset($_SESSION['streak'])) {
         $_SESSION['streak'] = 0;
     }
@@ -41,11 +50,13 @@ function startGame()
         'grid' => $_SESSION['grid'],
         'streak' => $_SESSION['streak'],
         'streakValues' => $_SESSION['streakValues'],
+        'scoreboard' => $_SESSION['scoreboard']
     ]);
 }
 
 function submitGuess()
 {
+    $dbconn = new mysqli("127.0.0.1", "root", "juswan07?", "wordle_game", 3306);
     $guess = $_POST['guess'] ?? '';
     $currentRow = $_SESSION['currentRow'] ?? 0;
 
