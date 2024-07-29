@@ -3,8 +3,8 @@
 This document will detail the design decisions made in creating our Wordle game, which will include structure of code and visual components.
 
 > Project done by **Mustafa Ahmed** & **Justin Wang** \
-> July 16th, 2024 \
-> A3
+> July 29th, 2024 \
+> A4
 
 ## Overview
 
@@ -27,13 +27,15 @@ We have added a simple scoring system ourselves:
 
 ## How to Play
 
-1. With PHP downloaded on your computer, navigate to the v02 directory on your terminal.
+1. With PHP downloaded on your computer, navigate to the v03 directory on your terminal.
 
-2. In the terminal, type the following cmd to deploy a PHP server at localhost 3000: `php -S localhost:3000` (use `killall -9 php` to turn off PHP server).
+2. Create a database on MySQL, change the specifications in the PHP to match your database, and run all the queries in the SQL file in MySQL.
 
-3. With the server now running, navigate to `http://localhost:3000/index.html` in your chosen web browser.
+3. In the terminal, type the following cmd to deploy a PHP server at localhost 3000: `php -S localhost:3000` (use `killall -9 php` to turn off PHP server).
 
-4. Begin guessing words using your keyboard!
+4. With the server now running, navigate to `http://localhost:3000/index.html` in your chosen web browser.
+
+5. Begin guessing words using your keyboard!
    <p align="center">
      <img src="../docs/our_wordle.png" alt="our wordle"/>
    </p>
@@ -45,6 +47,10 @@ We have added a simple scoring system ourselves:
 Our `index.html` file displays our board and all core game elements. We know that our board will be 6 rows and 5 columns, so the board was coded within our HTML file. Each block in each column was created in the HMTL file, with it's own set id, to keep track of each position in the JS document.
 
 The streak counter is placed above the game board as a regular text output. The leaderboard is placed in the top left corner of the screen as a fixed side-bar that outputs an ordered list of scores. Both elements have unique ids for styling and are dynamically updated as the game is played.
+
+### SQL
+
+Our `query.sql` file includes queries to create 2 tables for our "wordle_game" database, WordList and Leaderboard. It contains a list full of strings which are randomly queried. Leaderboard stores the name and score of the top 10 streaks.
 
 ### PHP
 
