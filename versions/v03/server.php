@@ -3,7 +3,7 @@ session_start();
 
 function startGame()
 {
-    $dbconn = new mysqli("127.0.0.1", "root", "juswan07?", "wordle_game", 3306);
+    $dbconn = new mysqli("127.0.0.1", "root", "--", "wordle_game", 3306);
     if ($dbconn->connect_error) {
         echo json_encode(["error" => "Connection failed: " . $dbconn->connect_error]);
         exit;
